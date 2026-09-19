@@ -20,12 +20,15 @@ env/
 # =========================
 # Machine Learning Artifacts
 # =========================
-# Best practice: Don't push generated binaries to Git. 
-# Other developers will generate these locally by running train.py
-*.pkl
-*.pt
+# Ignore general binary models but track our lightweight trained models
 *.h5
 *.onnx
+!ml-backend/*.pkl
+!ml-backend/*.pt
+!ml-backend/decision_tree.pkl
+!ml-backend/linear_regression.pkl
+!ml-backend/logistic_regression.pkl
+!ml-backend/neural_net.pt
 
 # =========================
 # Node.js & React (Vite) Frontend

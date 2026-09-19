@@ -50,12 +50,24 @@ class QueryNeuralNet(nn.Module):
         return out
 
 # 3. Model Loading
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+log_reg_file = os.path.join(BASE_DIR, 'logistic_regression.pkl')
+linear_reg_file = os.path.join(BASE_DIR, 'linear_regression.pkl')
+neural_net_file = os.path.join(BASE_DIR, 'neural_net.pt')
+
 print("Loading semantic embedder...")
 embedder = SentenceTransformer('all-MiniLM-L6-v2')
 
+# Failsafe: If model files are missing, run training script automatically
+if not os.path.exists(log_reg_file) or not os.path.exists(linear_reg_file) or not os.path.exists(neural_net_file):
+    print("Pre-trained models not found in directory, running training pipeline...")
+    import subprocess
+    import sys
+    subprocess.run([sys.executable, os.path.join(BASE_DIR, 'train.py')], check=True, cwd=BASE_DIR)
+
 print("Loading ML models...")
-log_reg = joblib.load('logistic_regression.pkl')
-linear_reg = joblib.load('linear_regression.pkl')
+log_reg = joblib.load(log_reg_file)
+linear_reg = joblib.load(linear_reg_file)
 
 print("Loading PyTorch Neural Network...")
 input_size = 384
@@ -63,7 +75,7 @@ hidden_size = 64
 num_classes = 4
 
 nn_model = QueryNeuralNet(input_dim=input_size, hidden_dim=hidden_size, output_dim=num_classes)
-nn_model.load_state_dict(torch.load('neural_net.pt', weights_only=True))
+nn_model.load_state_dict(torch.load(neural_net_file, weights_only=True))
 nn_model.eval()
 
 # 4. Request Schemas
