@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd decision-query-engine && npm install && npm run build",
+  "outputDirectory": "decision-query-engine/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

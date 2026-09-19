@@ -1,0 +1,9 @@
+{
+  "name": "decision-advanced",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd decision-query-engine && npm install && npm run build",
+    "dev": "cd decision-query-engine && npm run dev"
+  }
+}
