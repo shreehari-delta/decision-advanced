@@ -1,0 +1,26 @@
+/* --- Pleasant gradient background (replaces bg-pleasant.jpg) --- */
+.bg-pleasant-gradient {
+  position: relative;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.6) 0%, transparent 35%),
+    radial-gradient(circle at 85% 15%, rgba(255, 248, 230, 0.5) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 100%, rgba(191, 219, 254, 0.7) 0%, transparent 60%),
+    linear-gradient(180deg,
+      #eaf3fb 0%,
+      #dfeaf6 25%,
+      #cfe0ef 50%,
+      #bcd5ea 75%,
+      #a9c9e3 100%
+    );
+  background-attachment: fixed;
+}
+
+/* subtle water-ripple glow near the bottom */
+.bg-pleasant-gradient::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(255, 255, 255, 0.35), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
