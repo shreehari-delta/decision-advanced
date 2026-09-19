@@ -25,12 +25,14 @@ export default function App() {
     }
   }, [appState]);
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
   const handleQuerySubmit = async (submittedQuery: string) => {
     setQuery(submittedQuery);
     setAppState('understanding');
 
     try {
-      const triageRes = await fetch('http://localhost:3000/api/triage', {
+      const triageRes = await fetch(`${API_BASE_URL}/api/triage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: submittedQuery })
@@ -52,7 +54,7 @@ export default function App() {
   const executeAnalysis = async (targetQuery: string, answers: Record<string, string>) => {
     setAppState('understanding');
     try {
-      const res = await fetch('http://localhost:3000/api/analyze', {
+      const res = await fetch(`${API_BASE_URL}/api/analyze`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: targetQuery, answers })
