@@ -31,6 +31,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def health_check():
+    return {"status": "online", "message": "Decision Hybrid AI Engine is running"}
+
 # 2. PyTorch Architecture Definition
 class QueryNeuralNet(nn.Module):
     def __init__(self, input_dim, hidden_dim, output_dim):
